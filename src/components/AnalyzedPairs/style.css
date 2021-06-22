@@ -1,0 +1,38 @@
+#analyzedPairsRoot {
+  align-self: flex-end;
+  flex-direction: column;
+  margin: 0px;
+  max-height: 80vh;
+  overflow-y: scroll;
+  padding-bottom: 1vh;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  padding-top: 1vh;
+}
+
+.analyzed-pair-bg-color {
+  background-color: #4d4d4d;
+}
+
+.analyzedPairButton {
+  font-size: 1.2em;
+  margin-right: 1vw;
+  padding-bottom: 0.2ch;
+  padding-left: 1ch;
+  padding-right: 1ch;
+  padding-top: 0.2ch;
+  width: 15ch;
+}
+
+.analyzedPairDeleteButton {
+  font-size: 1.2em;
+  padding-bottom: 0.2ch;
+  padding-left: 1ch;
+  padding-right: 1ch;
+  padding-top: 0.2ch;
+}
+
+.flat-paragraph {
+  padding: 0px;
+  margin: 0px;
+}

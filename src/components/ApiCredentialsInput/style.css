@@ -1,0 +1,79 @@
+#credentialsRoot {
+  align-items: center;
+  flex-direction: column;
+  height: 96vh;
+  justify-content: center;
+  margin: 0px;
+  padding: 0px;
+  width: 96vw;
+}
+
+.instructions {
+  font-size: 1.2em;
+  margin: 0px;
+}
+
+.instructions-link {
+  font-size: 1.2em;
+  color: #f0b90b;
+}
+
+.big-margin-top {
+  margin-top: 10vh;
+}
+
+.note {
+  color: #f0b90b;
+}
+
+#disclaimer {
+  bottom: 0px;
+  color: #737373;
+  font-size: 0.9em;
+  left: 0px;
+  padding-bottom: 1vh;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  position: absolute;
+}
+
+.disclaimer-color {
+  color: #737373;
+}
+
+.row: {
+  flex-direction: row;
+}
+
+.long-input {
+  padding-bottom: 0.5ch;
+  padding-top: 0.5ch;
+  width: 70ch;
+}
+
+.active-credentials-button {
+  background-color: #f0b90b;
+  border-color: transparent;
+  color: black;
+  font-size: 2em;
+  padding-bottom: 0.2ch;
+  padding-left: 0.8ch;
+  padding-right: 0.8ch;
+  padding-top: 0.3ch;
+}
+
+#continueButton:active {
+  background-color: #aa8508;
+}
+
+.inactive-credentials-button {
+  background-color: gray;
+  border-color: transparent;
+  color: black;
+  font-size: 2em;
+  opacity: 0.5;
+  padding-bottom: 0.2ch;
+  padding-left: 0.8ch;
+  padding-right: 0.8ch;
+  padding-top: 0.3ch;
+}

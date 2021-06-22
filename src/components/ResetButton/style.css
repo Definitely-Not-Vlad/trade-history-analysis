@@ -1,0 +1,13 @@
+#resetButton {
+  align-self: flex-end;
+  background-color: #e6e6e6;
+  border-color: transparent;
+  border-width: 0px;
+  bottom: 0px;
+  color: black;
+  font-size: 1.5em;
+  min-height: 2rem;
+  height: 7vh;
+  position: absolute;
+  width: 100vw;
+}

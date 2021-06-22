@@ -2,12 +2,18 @@ const { app, BrowserWindow } = require('electron');
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
-    width: 1200,
-    height: 1200,
+    darkTheme: true,
+    fullscreenable: false,
+    height: 630,
+    maximizable: false,
+    resizable: false,
+    simpleFullscreen: false,
+    title: 'Trade History Analysis',
+    width: 800,
   });
 
-  mainWindow.loadUrl('localhost:3000');
-  mainWindow.webContents.openDevTools();
+  mainWindow.loadFile('build/index.html');
+  // mainWindow.webContents.openDevTools();
 }
 
 app.whenReady().then(() => {
