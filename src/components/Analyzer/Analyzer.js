@@ -1,9 +1,8 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import autoBindReact from 'auto-bind/react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import './style.css';
 import {
   clearTradeHistory,
   fetchTradeHistory,
@@ -16,7 +15,8 @@ import {
   getTradeHistoryStatus,
 } from '../../redux';
 import { analyzeTrades } from '../../services';
-import { AnalysisDisplay, AnalyzedPairs } from '../';
+import { AnalysisDisplay, AnalyzedPairs } from '..';
+import './style.css';
 
 export class Analyzer extends PureComponent {
   static propTypes = {
@@ -101,16 +101,16 @@ export class Analyzer extends PureComponent {
     return (
       <div id="analyzerRoot">
         <div id="analyzerLeft">
-          <div class="space-between row">
+          <div className="space-between row">
             <input
-              class="short-input"
+              className="short-input"
               onChange={this.handlePairChange}
               onKeyDown={this.handleEnterKeyPress}
               placeholder="Pair (e.g. BTC/USDT)"
               value={pair}
             />
             <button
-              class={
+              className={
                 analyzeDisabled
                   ? 'inactiveAnalyzerButton'
                   : 'activeAnalyzerButton'
@@ -122,7 +122,7 @@ export class Analyzer extends PureComponent {
               Analyze
             </button>
             <button
-              class={
+              className={
                 refreshDisabled
                   ? 'inactiveAnalyzerButton'
                   : 'activeAnalyzerButton'

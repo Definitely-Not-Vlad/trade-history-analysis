@@ -1,9 +1,9 @@
 import React from 'react';
-import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
-import './style.css';
-import { configureStore } from '../../redux';
-import { Navigation, ResetButton } from '../';
+import { PersistGate } from 'redux-persist/integration/react';
+import { Navigation, ResetButton } from './components';
+import { configureStore } from './redux';
+import './App.css';
 
 const { persistor, store } = configureStore();
 

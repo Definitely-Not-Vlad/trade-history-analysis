@@ -42,25 +42,25 @@ export default class AnalyzedPairs extends PureComponent {
     return (
       <div
         id="analyzedPairsRoot"
-        class={symbols.length ? 'analyzed-pair-bg-color' : ''}
+        className={symbols.length ? 'analyzed-pair-bg-color' : ''}
       >
-        <div class="column">
+        <div className="column">
           {symbols.map((symbol, index) => {
             const divClass =
               index !== symbols.length - 1 ? 'row md-margin-bottom' : 'row';
 
             return (
-              <div class={divClass}>
+              <div className={divClass}>
                 <button
-                  class="analyzedPairButton"
+                  className="analyzedPairButton"
                   key={symbol}
                   onClick={() => this.handleSelect(symbol)}
                 >
                   {symbol}
                 </button>
                 <button
-                  class="analyzedPairDeleteButton"
-                  key={symbol + 'x'}
+                  className="analyzedPairDeleteButton"
+                  key={`${symbol}x`}
                   onClick={() => this.handleForget(symbol)}
                 >
                   X

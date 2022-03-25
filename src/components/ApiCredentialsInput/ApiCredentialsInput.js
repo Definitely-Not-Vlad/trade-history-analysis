@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import autoBindReact from 'auto-bind/react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import './style.css';
 import { setCredentials, setRememberCredentials } from '../../redux';
+import './style.css';
 
 class ApiCredentialsInput extends PureComponent {
   static propTypes = {
@@ -66,32 +66,32 @@ class ApiCredentialsInput extends PureComponent {
 
     return (
       <div id="credentialsRoot">
-        <p class="instructions">
+        <p className="instructions">
           A guide on how to create an API key can be found here:
         </p>
-        <p class="instructions-link lg-margin-vertical">
+        <p className="instructions-link lg-margin-vertical">
           https://www.binance.com/en/support/faq/360002502072
         </p>
-        <p class="instructions">
-          The key requires <span class="note">Can Read</span> and{' '}
-          <span class="note">Enable Spot & Margin Trading</span>
-          <span class="disclaimer-color">*</span> access.
+        <p className="instructions">
+          The key requires <span className="note">Can Read</span> and{' '}
+          <span className="note">Enable Spot & Margin Trading</span>
+          <span className="disclaimer-color">*</span> access.
         </p>
         <input
-          class="long-input big-margin-top"
+          className="long-input big-margin-top"
           onChange={this.handleKeyChange}
           placeholder="API key"
           type="password"
           value={apiKey}
         />
         <input
-          class="long-input lg-margin-top"
+          className="long-input lg-margin-top"
           onChange={this.handleSecretChange}
           placeholder="API secret"
           type="password"
           value={secret}
         />
-        <div class="row md-margin-top">
+        <div className="row md-margin-top">
           <label>
             Remember my key and secret{' '}
             <span style={{ color: 'red' }}>(not recommended)</span>
@@ -105,7 +105,7 @@ class ApiCredentialsInput extends PureComponent {
         <button
           disabled={continueDisabled}
           id="continueButton"
-          class={
+          className={
             continueDisabled
               ? 'inactive-credentials-button lg-margin-top'
               : 'active-credentials-button lg-margin-top'
