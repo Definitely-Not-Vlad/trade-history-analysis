@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import './style.css';
+import PropTypes from 'prop-types';
 import {
   clearCredentials,
   clearTradeHistory,
@@ -9,7 +8,8 @@ import {
   getRememberCredentials,
   getSecret,
 } from '../../redux';
-import { Analyzer, ApiCredentialsInput } from '../';
+import { Analyzer, ApiCredentialsInput } from '..';
+import './style.css';
 
 export class Navigation extends PureComponent {
   static propTypes = {
@@ -46,7 +46,7 @@ export class Navigation extends PureComponent {
     const { apiKey, secret } = this.props;
 
     return (
-      <div id="navigationRoot" class="md-padding">
+      <div id="navigationRoot" className="md-padding">
         {apiKey && secret && <Analyzer />}
         {(!apiKey || !secret) && <ApiCredentialsInput />}
       </div>

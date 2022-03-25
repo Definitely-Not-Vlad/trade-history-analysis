@@ -33,7 +33,7 @@ export default class AnalysisDisplay extends PureComponent {
 
     return (
       <div id="analysisDisplayRoot">
-        <div class="space-between row">
+        <div className="space-between row">
           <p>Bought</p>
           <p>
             {amountPurchased === 0
@@ -41,7 +41,7 @@ export default class AnalysisDisplay extends PureComponent {
               : `${amountPurchased.toFixed(8)} ${buyAsset}`}
           </p>
         </div>
-        <div class="space-between row">
+        <div className="space-between row">
           <p>Average buy price</p>
           <p>
             {averageBuy === 0
@@ -49,7 +49,7 @@ export default class AnalysisDisplay extends PureComponent {
               : `${averageBuy.toFixed(8)} ${sellAsset}`}
           </p>
         </div>
-        <div class="space-between row">
+        <div className="space-between row">
           <p>Total costs</p>
           <p>
             {purchases === 0
@@ -57,7 +57,7 @@ export default class AnalysisDisplay extends PureComponent {
               : `${purchases.toFixed(8)} ${sellAsset}`}
           </p>
         </div>
-        <div class="space-between row">
+        <div className="space-between row">
           <p>Buy fees</p>
           <p>
             {buyFees === 0
@@ -65,14 +65,14 @@ export default class AnalysisDisplay extends PureComponent {
               : `${buyFees.toFixed(8)} ${buyAsset}`}
           </p>
         </div>
-        <div class="space-between row">
+        <div className="space-between row">
           <p>BNB buy fees</p>
           <p>{bnbBuyFees === 0 ? `0 BNB` : `${bnbBuyFees.toFixed(8)} BNB`}</p>
         </div>
 
-        <div class="divider" />
+        <div className="divider" />
 
-        <div class="space-between row">
+        <div className="space-between row">
           <p>Sold</p>
           <p>
             {amountSold === 0
@@ -80,7 +80,7 @@ export default class AnalysisDisplay extends PureComponent {
               : `${amountSold.toFixed(8)} ${buyAsset}`}
           </p>
         </div>
-        <div class="space-between row">
+        <div className="space-between row">
           <p>Average sell price</p>
           <p>
             {averageSell === 0
@@ -88,7 +88,7 @@ export default class AnalysisDisplay extends PureComponent {
               : `${averageSell.toFixed(8)} ${sellAsset}`}
           </p>
         </div>
-        <div class="space-between row">
+        <div className="space-between row">
           <p>Total sales</p>
           <p>
             {sales === 0
@@ -96,7 +96,7 @@ export default class AnalysisDisplay extends PureComponent {
               : `${sales.toFixed(8)} ${sellAsset}`}
           </p>
         </div>
-        <div class="space-between row">
+        <div className="space-between row">
           <p>Sell fees</p>
           <p>
             {sellFees === 0
@@ -104,14 +104,14 @@ export default class AnalysisDisplay extends PureComponent {
               : `${sellFees.toFixed(8)} ${sellAsset}`}
           </p>
         </div>
-        <div class="space-between row">
+        <div className="space-between row">
           <p>BNB sell fees</p>
           <p>{bnbSellFees === 0 ? `0 BNB` : `${bnbSellFees.toFixed(8)} BNB`}</p>
         </div>
 
-        <div class="divider" />
+        <div className="divider" />
 
-        <div class="space-between row">
+        <div className="space-between row">
           <p>Profit</p>
           <p>
             {profit === 0
@@ -119,7 +119,7 @@ export default class AnalysisDisplay extends PureComponent {
               : `${profit.toFixed(8)} ${sellAsset}`}
           </p>
         </div>
-        <div class="space-between row">
+        <div className="space-between row">
           <p>Number of trades</p>
           <p>{numberOfTrades}</p>
         </div>

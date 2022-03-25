@@ -1,4 +1,4 @@
-const Crypto = require('crypto');
+const Crypto = require('crypto-js');
 const Uri = require('urijs');
 
 function sign(queryString, secret) {
