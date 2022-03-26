@@ -102,13 +102,20 @@ export class Analyzer extends PureComponent {
       <div id="analyzerRoot">
         <div id="analyzerLeft">
           <div className="space-between row">
-            <input
-              className="short-input"
-              onChange={this.handlePairChange}
-              onKeyDown={this.handleEnterKeyPress}
-              placeholder="Pair (e.g. BTC/USDT)"
-              value={pair}
-            />
+            <div className="input-container">
+              <input
+                className="short-input"
+                onChange={this.handlePairChange}
+                onKeyDown={this.handleEnterKeyPress}
+                placeholder="Pair (e.g. BTC/USDT)"
+                value={pair}
+              />
+              <div className="suggestion-container">
+                {['derp', 'herp', 'lerp'].map(suggestion => (
+                  <p>{suggestion}</p>
+                ))}
+              </div>
+            </div>
             <button
               className={
                 analyzeDisabled

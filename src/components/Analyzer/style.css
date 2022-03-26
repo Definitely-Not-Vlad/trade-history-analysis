@@ -1,18 +1,22 @@
 #analyzerRoot {
   flex: 1;
   flex-direction: row;
-  height: 96vh;
   margin: 0px;
   padding: 0px;
 }
 
 #analyzerLeft {
-  flex: 4;
+  flex: 1;
   flex-direction: column;
 }
 
 #analyzerRight {
-  flex: 2;
+  flex: 1;
+  flex-direction: column;
+}
+
+.input-container {
+  flex: 6;
   flex-direction: column;
 }
 
@@ -22,7 +26,17 @@
   padding-left: 0.8ch;
   padding-right: 0.8ch;
   padding-top: 0.3ch;
-  flex: 8;
+}
+
+.suggestion-container {
+  position: absolute;
+  padding-top: 2.2ch;
+  padding-left: 0.8ch;
+  flex-direction: column;
+}
+
+.suggestion {
+  font-size: 1.2em;
 }
 
 #liteAppNote {
