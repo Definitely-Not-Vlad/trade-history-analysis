@@ -1,3 +1,4 @@
+import { fetchHistory } from '../services';
 import {
   CLEAR_CREDENTIALS,
   CLEAR_TRADE_HISTORY,
@@ -7,7 +8,6 @@ import {
   SET_TRADE_HISTORY_LOADING,
   UPDATE_TRADE_HISTORY,
 } from './actionTypes';
-import { fetchHistory } from '../services';
 
 export function clearCredentials() {
   return { type: CLEAR_CREDENTIALS };
@@ -41,6 +41,7 @@ export function fetchTradeHistory(apiKey, secret, symbol) {
         });
       })
       .catch(error => {
+        // eslint-disable-next-line no-console
         console.error('Failed to fetch trade history:', error);
         return dispatch({
           type: UPDATE_TRADE_HISTORY,

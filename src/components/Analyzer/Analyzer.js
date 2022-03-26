@@ -107,6 +107,7 @@ export class Analyzer extends PureComponent {
               disabled={analyzeDisabled}
               id="analyzeButton"
               onClick={this.fetchHistoryForSymbol}
+              type="button"
             >
               Analyze
             </button>
@@ -119,25 +120,26 @@ export class Analyzer extends PureComponent {
               disabled={refreshDisabled}
               id="refreshButton"
               onClick={this.fetchHistoryForSymbol}
+              type="button"
             >
               Refresh
             </button>
           </div>
           <br />
           {fetchInProgress && (
-            <p>Loading trade history for '{fetchedPair}'...</p>
+            <p>Loading trade history for &apos{fetchedPair}&apos...</p>
           )}
           {!fetchInProgress && showTrades && (
             <div>
               {!!history.length && <AnalysisDisplay analysis={analysis} />}
               {!history.length && (
-                <p>Could not find any trades for '{fetchedPair}'.</p>
+                <p>Could not find any trades for &apos{fetchedPair}&apos.</p>
               )}
             </div>
           )}
           {!fetchInProgress && !!error && (
             <p>
-              Failed to fetch trading history for '{fetchedPair}'.
+              Failed to fetch trading history for &apos{fetchedPair}&apos.
               <br />
               <br />
               API error: {error}
@@ -153,7 +155,8 @@ export class Analyzer extends PureComponent {
         </div>
         <p id="liteAppNote">
           Trades made on the Binance Lite app will not be part of the analysis
-          because this information is not stored in the account's trade history.
+          because this information is not stored in the account&aposs trade
+          history.
         </p>
       </div>
     );

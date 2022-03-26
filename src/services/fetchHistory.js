@@ -22,7 +22,6 @@ export default function fetchHistory(key, secret, symbol) {
     .toString();
 
   return new Promise((resolve, reject) => {
-    // eslint-disable-next-line no-undef
     window
       .fetch(url, {
         method: 'GET',

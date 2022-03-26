@@ -3,11 +3,11 @@ export default function analyzeTrades(history) {
   let amountSold = 0;
   let bnbBuyFees = 0;
   let bnbSellFees = 0;
-  let buyAsset = undefined;
+  let buyAsset;
   let buyFees = 0;
   let purchases = 0;
   let sales = 0;
-  let sellAsset = undefined;
+  let sellAsset;
   let sellFees = 0;
 
   history.forEach(trade => {

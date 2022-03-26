@@ -46,7 +46,7 @@ function tradeHistory(state = defaultTradeHistoryState, action) {
         ...withoutSymbol
       } = state;
 
-      const symbolIndex = symbols.indexOf(action.payload.symbol);
+      const symbolIndex = symbols.indexOf(removedSymbol);
       const newSymbols = [...symbols];
       newSymbols.splice(symbolIndex, 1);
 

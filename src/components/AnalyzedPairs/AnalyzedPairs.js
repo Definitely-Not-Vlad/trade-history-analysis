@@ -38,11 +38,12 @@ export default class AnalyzedPairs extends PureComponent {
               index !== symbols.length - 1 ? 'row md-margin-bottom' : 'row';
 
             return (
-              <div className={divClass}>
+              <div className={divClass} key={`pair-${symbol}`}>
                 <button
                   className="analyzedPairButton"
                   key={symbol}
                   onClick={() => this.handleSelect(symbol)}
+                  type="button"
                 >
                   {symbol}
                 </button>
@@ -50,6 +51,7 @@ export default class AnalyzedPairs extends PureComponent {
                   className="analyzedPairDeleteButton"
                   key={`${symbol}x`}
                   onClick={() => this.handleForget(symbol)}
+                  type="button"
                 >
                   X
                 </button>
