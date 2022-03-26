@@ -114,7 +114,7 @@ class ApiCredentialsInput extends PureComponent {
           *Trade History Analysis (THA), as written and distributed by
           Definitely-Not-Vlad, does not perform trades or send any user
           information via network requests. The only network request THA sends
-          is a GET request for the user&aposs trade history for a given trade
+          is a GET request for the user&apos;s trade history for a given trade
           pair (e.g. BTC/USDT). Before using THA the user should enable IP
           restrictions for their API key so only they can utilize it.
         </p>
