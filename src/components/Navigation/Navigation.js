@@ -12,14 +12,6 @@ import { Analyzer, ApiCredentialsInput } from '..';
 import './style.css';
 
 export class Navigation extends PureComponent {
-  static propTypes = {
-    apiKey: PropTypes.string,
-    clearCredentials: PropTypes.func,
-    clearTradeHistory: PropTypes.func,
-    rememberCredentials: PropTypes.bool,
-    secret: PropTypes.string,
-  };
-
   componentDidMount() {
     const { rememberCredentials } = this.props;
 
@@ -53,6 +45,20 @@ export class Navigation extends PureComponent {
     );
   }
 }
+
+Navigation.propTypes = {
+  clearCredentials: PropTypes.func.isRequired,
+  clearTradeHistory: PropTypes.func.isRequired,
+  apiKey: PropTypes.string,
+  rememberCredentials: PropTypes.bool,
+  secret: PropTypes.string,
+};
+
+Navigation.defaultProps = {
+  apiKey: '',
+  rememberCredentials: false,
+  secret: '',
+};
 
 const mapStateToProps = state => {
   return {

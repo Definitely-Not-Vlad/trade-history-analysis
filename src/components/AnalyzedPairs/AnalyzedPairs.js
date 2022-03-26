@@ -4,18 +4,6 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 export default class AnalyzedPairs extends PureComponent {
-  static propTypes = {
-    onForget: PropTypes.func,
-    onSelect: PropTypes.func,
-    // Using an object because when array updates are passed through props the
-    // changes don't trigger lifecycle, so the component doesn't re-render.
-    symbols: PropTypes.object,
-  };
-
-  static defaultProps = {
-    symbols: { pairs: [] },
-  };
-
   constructor(props) {
     super(props);
 
@@ -73,3 +61,15 @@ export default class AnalyzedPairs extends PureComponent {
     );
   }
 }
+
+AnalyzedPairs.propTypes = {
+  onForget: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
+  // Using an object because when array updates are passed through props the
+  // changes don't trigger lifecycle, so the component doesn't re-render.
+  symbols: PropTypes.object,
+};
+
+AnalyzedPairs.defaultProps = {
+  symbols: { pairs: [] },
+};

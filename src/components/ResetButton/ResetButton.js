@@ -1,23 +1,16 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import autoBindReact from 'auto-bind/react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import './style.css';
 import {
   clearCredentials,
   clearTradeHistory,
   getKey,
   getSecret,
 } from '../../redux';
+import './style.css';
 
 export class ResetButton extends PureComponent {
-  static propTypes = {
-    apiKey: PropTypes.string,
-    clearCredentials: PropTypes.func,
-    clearTradeHistory: PropTypes.func,
-    secret: PropTypes.string,
-  };
-
   constructor(props) {
     super(props);
 
@@ -45,6 +38,18 @@ export class ResetButton extends PureComponent {
     return null;
   }
 }
+
+ResetButton.propTypes = {
+  clearCredentials: PropTypes.func.isRequired,
+  clearTradeHistory: PropTypes.func.isRequired,
+  apiKey: PropTypes.string,
+  secret: PropTypes.string,
+};
+
+ResetButton.defaultProps = {
+  apiKey: '',
+  secret: '',
+};
 
 const mapStateToProps = state => {
   return {
