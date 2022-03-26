@@ -41,7 +41,9 @@
     "prettier": "1.19.1"
   },
   "eslintConfig": {
-    "browser": true,
+    "env": {
+      "browser": true
+    },
     "extends": "@shoutem/react",
     "parser": "babel-eslint",
     "parserOptions": {
