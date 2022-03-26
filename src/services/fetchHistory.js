@@ -2,9 +2,7 @@ const Crypto = require('crypto-js');
 const Uri = require('urijs');
 
 function sign(queryString, secret) {
-  return Crypto.createHmac('sha256', secret)
-    .update(queryString)
-    .digest('hex');
+  return Crypto.HmacSHA256(queryString, secret);
 }
 
 export default function fetchHistory(key, secret, symbol) {
@@ -24,6 +22,7 @@ export default function fetchHistory(key, secret, symbol) {
     .toString();
 
   return new Promise((resolve, reject) => {
+    // eslint-disable-next-line no-undef
     window
       .fetch(url, {
         method: 'GET',
