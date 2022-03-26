@@ -29,7 +29,7 @@ export class ResetButton extends PureComponent {
 
     if (apiKey || secret) {
       return (
-        <button id="resetButton" onClick={this.reset}>
+        <button id="resetButton" onClick={this.reset} type="button">
           Reset API credentials and trades
         </button>
       );
