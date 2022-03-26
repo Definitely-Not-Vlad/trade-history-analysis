@@ -6,11 +6,6 @@ import { setCredentials, setRememberCredentials } from '../../redux';
 import './style.css';
 
 class ApiCredentialsInput extends PureComponent {
-  static propTypes = {
-    setCredentials: PropTypes.func,
-    setRememberCredentials: PropTypes.func,
-  };
-
   constructor(props) {
     super(props);
 
@@ -126,6 +121,11 @@ class ApiCredentialsInput extends PureComponent {
     );
   }
 }
+
+ApiCredentialsInput.propTypes = {
+  setCredentials: PropTypes.func.isRequired,
+  setRememberCredentials: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = {
   setCredentials,

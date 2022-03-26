@@ -3,14 +3,6 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 export default class AnalysisDisplay extends PureComponent {
-  static propTypes = {
-    analysis: PropTypes.object,
-  };
-
-  static defaultProps = {
-    analysis: {},
-  };
-
   render() {
     const {
       analysis: {
@@ -127,3 +119,11 @@ export default class AnalysisDisplay extends PureComponent {
     );
   }
 }
+
+AnalysisDisplay.propTypes = {
+  analysis: PropTypes.object,
+};
+
+AnalysisDisplay.defaultProps = {
+  analysis: {},
+};

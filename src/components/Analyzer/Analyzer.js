@@ -4,7 +4,6 @@ import autoBindReact from 'auto-bind/react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import {
-  clearTradeHistory,
   fetchTradeHistory,
   forgetSymbol,
   getKey,
@@ -19,16 +18,6 @@ import { AnalysisDisplay, AnalyzedPairs } from '..';
 import './style.css';
 
 export class Analyzer extends PureComponent {
-  static propTypes = {
-    apiKey: PropTypes.string.isRequired,
-    clearTradeHistory: PropTypes.func,
-    fetchTradeHistory: PropTypes.func,
-    forgetSymbol: PropTypes.func,
-    secret: PropTypes.string.isRequired,
-    symbols: PropTypes.array,
-    tradeHistory: PropTypes.object,
-  };
-
   constructor(props) {
     super(props);
 
@@ -171,6 +160,22 @@ export class Analyzer extends PureComponent {
   }
 }
 
+Analyzer.propTypes = {
+  apiKey: PropTypes.string.isRequired,
+  fetchTradeHistory: PropTypes.func.isRequired,
+  forgetSymbol: PropTypes.func.isRequired,
+  secret: PropTypes.string.isRequired,
+  fetchInProgress: PropTypes.bool,
+  symbols: PropTypes.array,
+  tradeHistory: PropTypes.object,
+};
+
+Analyzer.defaultProps = {
+  fetchInProgress: false,
+  symbols: [],
+  tradeHistory: {},
+};
+
 const mapStateToProps = state => {
   return {
     apiKey: getKey(state),
@@ -184,7 +189,6 @@ const mapStateToProps = state => {
 export const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      clearTradeHistory,
       fetchTradeHistory,
       forgetSymbol,
     },
