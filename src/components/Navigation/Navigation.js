@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -11,39 +11,26 @@ import {
 import { Analyzer, ApiCredentialsInput } from '..';
 import './style.css';
 
-export class Navigation extends PureComponent {
-  componentDidMount() {
-    const { rememberCredentials } = this.props;
-
+export function Navigation({
+  apiKey,
+  clearCredentials,
+  clearTradeHistory,
+  rememberCredentials,
+  secret,
+}) {
+  useEffect(() => {
     if (!rememberCredentials) {
-      const { clearCredentials, clearTradeHistory } = this.props;
-
       clearCredentials();
       clearTradeHistory();
     }
-  }
+  }, [clearCredentials, clearTradeHistory, rememberCredentials]);
 
-  componentWillUnmount() {
-    const { rememberCredentials } = this.props;
-
-    if (!rememberCredentials) {
-      const { clearCredentials, clearTradeHistory } = this.props;
-
-      clearCredentials();
-      clearTradeHistory();
-    }
-  }
-
-  render() {
-    const { apiKey, secret } = this.props;
-
-    return (
-      <div id="navigationRoot" className="md-padding">
-        {apiKey && secret && <Analyzer />}
-        {(!apiKey || !secret) && <ApiCredentialsInput />}
-      </div>
-    );
-  }
+  return (
+    <div id="navigationRoot" className="md-padding">
+      {apiKey && secret && <Analyzer />}
+      {(!apiKey || !secret) && <ApiCredentialsInput />}
+    </div>
+  );
 }
 
 Navigation.propTypes = {
@@ -60,13 +47,13 @@ Navigation.defaultProps = {
   secret: '',
 };
 
-const mapStateToProps = state => {
+function mapStateToProps(state) {
   return {
     apiKey: getKey(state),
     rememberCredentials: getRememberCredentials(state),
     secret: getSecret(state),
   };
-};
+}
 
 const mapDispatchToProps = { clearCredentials, clearTradeHistory };
 

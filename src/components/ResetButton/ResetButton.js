@@ -1,6 +1,5 @@
-import React, { PureComponent } from 'react';
+import React, { useCallback } from 'react';
 import { connect } from 'react-redux';
-import autoBindReact from 'auto-bind/react';
 import PropTypes from 'prop-types';
 import {
   clearCredentials,
@@ -10,33 +9,26 @@ import {
 } from '../../redux';
 import './style.css';
 
-export class ResetButton extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    autoBindReact(this);
-  }
-
-  reset() {
-    const { clearCredentials, clearTradeHistory } = this.props;
-
+export function ResetButton({
+  apiKey,
+  clearCredentials,
+  clearTradeHistory,
+  secret,
+}) {
+  const reset = useCallback(() => {
     clearCredentials();
     clearTradeHistory();
+  }, [clearCredentials, clearTradeHistory]);
+
+  if (apiKey && secret) {
+    return (
+      <button id="resetButton" onClick={reset} type="button">
+        Reset API credentials and trades
+      </button>
+    );
   }
 
-  render() {
-    const { apiKey, secret } = this.props;
-
-    if (apiKey || secret) {
-      return (
-        <button id="resetButton" onClick={this.reset} type="button">
-          Reset API credentials and trades
-        </button>
-      );
-    }
-
-    return null;
-  }
+  return null;
 }
 
 ResetButton.propTypes = {
@@ -51,12 +43,12 @@ ResetButton.defaultProps = {
   secret: '',
 };
 
-const mapStateToProps = state => {
+function mapStateToProps(state) {
   return {
     apiKey: getKey(state),
     secret: getSecret(state),
   };
-};
+}
 
 const mapDispatchToProps = { clearCredentials, clearTradeHistory };
 
