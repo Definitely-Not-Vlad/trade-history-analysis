@@ -1,6 +1,5 @@
-import React, { PureComponent } from 'react';
+import React, { useCallback, useState } from 'react';
 import { connect } from 'react-redux';
-import autoBindReact from 'auto-bind/react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import {
@@ -17,150 +16,149 @@ import { analyzeTrades } from '../../services';
 import { AnalysisDisplay, AnalyzedPairs } from '..';
 import './style.css';
 
-export class Analyzer extends PureComponent {
-  constructor(props) {
-    super(props);
+export function Analyzer({
+  apiKey,
+  fetchInProgress,
+  fetchTradeHistory,
+  forgetSymbol,
+  secret,
+  symbols,
+  tradeHistory,
+}) {
+  const { error } = tradeHistory;
 
-    autoBindReact(this);
+  const [fetchedPair, setFetchedPair] = useState('');
+  const [hasChanges, setHasChanges] = useState(false);
+  const [pair, setPair] = useState('');
 
-    this.state = {
-      fetchedPair: '',
-      hasChanges: false,
-      pair: '',
-    };
-  }
-
-  purgeSymbol(symbol) {
+  const purgeSymbol = useCallback(symbol => {
     return symbol.replace('/', '');
-  }
+  }, []);
 
-  fetchHistoryForSymbol() {
-    const { apiKey, fetchTradeHistory, secret } = this.props;
-    const { pair } = this.state;
+  const fetchHistoryForSymbol = useCallback(() => {
+    fetchTradeHistory(apiKey, secret, purgeSymbol(pair));
+    setFetchedPair(pair);
+    setHasChanges(false);
+  }, [
+    apiKey,
+    fetchTradeHistory,
+    pair,
+    purgeSymbol,
+    secret,
+    setFetchedPair,
+    setHasChanges,
+  ]);
 
-    fetchTradeHistory(apiKey, secret, this.purgeSymbol(pair));
-    this.setState({ fetchedPair: pair, hasChanges: false });
-  }
+  const removeSymbol = useCallback(symbol => forgetSymbol(symbol), [
+    forgetSymbol,
+  ]);
 
-  removeSymbol(symbol) {
-    const { forgetSymbol } = this.props;
+  const selectSymbol = useCallback(
+    symbol => {
+      setFetchedPair(symbol);
+      setPair(symbol);
+      setHasChanges(false);
+    },
+    [setFetchedPair, setHasChanges, setPair],
+  );
 
-    forgetSymbol(symbol);
-  }
+  const handleEnterKeyPress = useCallback(
+    event => {
+      if (event.key === 'Enter' && hasChanges && pair) {
+        fetchHistoryForSymbol();
+      }
+    },
+    [fetchHistoryForSymbol, hasChanges, pair],
+  );
 
-  selectSymbol(symbol) {
-    this.setState({ fetchedPair: symbol, pair: symbol, hasChanges: false });
-  }
-
-  handlePairChange(event) {
+  function handlePairChange(event) {
     event.preventDefault();
-    this.setState({
-      pair: event?.target?.value.toUpperCase(),
-      hasChanges: true,
-    });
+    setPair(event?.target?.value.toUpperCase());
+    setHasChanges(true);
   }
 
-  handleEnterKeyPress(event) {
-    const { hasChanges, pair } = this.state;
+  const history = fetchedPair
+    ? getSymbolHistory(tradeHistory, purgeSymbol(fetchedPair))
+    : [];
 
-    if (event.key === 'Enter' && hasChanges && pair) {
-      this.fetchHistoryForSymbol();
-    }
-  }
+  const showTrades = !error && fetchedPair && history && !!symbols.length;
+  const analysis = showTrades && !!history.length ? analyzeTrades(history) : {};
+  const analyzeDisabled = !pair || !hasChanges;
+  const refreshDisabled = !fetchedPair || hasChanges;
 
-  render() {
-    const {
-      fetchInProgress,
-      tradeHistory,
-      tradeHistory: { error },
-      symbols,
-    } = this.props;
-    const { fetchedPair, hasChanges, pair } = this.state;
-
-    const history = fetchedPair
-      ? getSymbolHistory(tradeHistory, this.purgeSymbol(fetchedPair))
-      : [];
-
-    const showTrades = !error && fetchedPair && history && !!symbols.length;
-    const analysis =
-      showTrades && !!history.length ? analyzeTrades(history) : {};
-    const analyzeDisabled = !pair || !hasChanges;
-    const refreshDisabled = !fetchedPair || hasChanges;
-
-    return (
-      <div id="analyzerRoot">
-        <div id="analyzerLeft">
-          <div className="space-between row">
-            <input
-              className="short-input"
-              onChange={this.handlePairChange}
-              onKeyDown={this.handleEnterKeyPress}
-              placeholder="Pair (e.g. BTC/USDT)"
-              value={pair}
-            />
-            <button
-              className={
-                analyzeDisabled
-                  ? 'inactiveAnalyzerButton'
-                  : 'activeAnalyzerButton'
-              }
-              disabled={analyzeDisabled}
-              id="analyzeButton"
-              onClick={this.fetchHistoryForSymbol}
-              type="button"
-            >
-              Analyze
-            </button>
-            <button
-              className={
-                refreshDisabled
-                  ? 'inactiveAnalyzerButton'
-                  : 'activeAnalyzerButton'
-              }
-              disabled={refreshDisabled}
-              id="refreshButton"
-              onClick={this.fetchHistoryForSymbol}
-              type="button"
-            >
-              Refresh
-            </button>
-          </div>
-          <br />
-          {fetchInProgress && (
-            <p>Loading trade history for &apos;{fetchedPair}&apos;...</p>
-          )}
-          {!fetchInProgress && showTrades && (
-            <div>
-              {!!history.length && <AnalysisDisplay analysis={analysis} />}
-              {!history.length && (
-                <p>Could not find any trades for &apos;{fetchedPair}&apos;.</p>
-              )}
-            </div>
-          )}
-          {!fetchInProgress && !!error && (
-            <p>
-              Failed to fetch trading history for &apos;{fetchedPair}&apos;.
-              <br />
-              <br />
-              API error: {error}
-            </p>
-          )}
-        </div>
-        <div id="analyzerRight">
-          <AnalyzedPairs
-            onForget={this.removeSymbol}
-            onSelect={this.selectSymbol}
-            symbols={{ pairs: symbols }}
+  return (
+    <div id="analyzerRoot">
+      <div id="analyzerLeft">
+        <div className="space-between row">
+          <input
+            className="short-input"
+            onChange={handlePairChange}
+            onKeyDown={handleEnterKeyPress}
+            placeholder="Pair (e.g. BTC/USDT)"
+            value={pair}
           />
+          <button
+            className={
+              analyzeDisabled
+                ? 'inactiveAnalyzerButton'
+                : 'activeAnalyzerButton'
+            }
+            disabled={analyzeDisabled}
+            id="analyzeButton"
+            onClick={fetchHistoryForSymbol}
+            type="button"
+          >
+            Analyze
+          </button>
+          <button
+            className={
+              refreshDisabled
+                ? 'inactiveAnalyzerButton'
+                : 'activeAnalyzerButton'
+            }
+            disabled={refreshDisabled}
+            id="refreshButton"
+            onClick={fetchHistoryForSymbol}
+            type="button"
+          >
+            Refresh
+          </button>
         </div>
-        <p id="liteAppNote">
-          Trades made on the Binance Lite app will not be part of the analysis
-          because this information is not stored in the account&apos;s trade
-          history.
-        </p>
+        <br />
+        {fetchInProgress && (
+          <p>Loading trade history for &apos;{fetchedPair}&apos;...</p>
+        )}
+        {!fetchInProgress && showTrades && (
+          <div>
+            {!!history.length && <AnalysisDisplay analysis={analysis} />}
+            {!history.length && (
+              <p>Could not find any trades for &apos;{fetchedPair}&apos;.</p>
+            )}
+          </div>
+        )}
+        {!fetchInProgress && !!error && (
+          <p>
+            Failed to fetch trading history for &apos;{fetchedPair}&apos;.
+            <br />
+            <br />
+            API error: {error}
+          </p>
+        )}
       </div>
-    );
-  }
+      <div id="analyzerRight">
+        <AnalyzedPairs
+          onForget={removeSymbol}
+          onSelect={selectSymbol}
+          symbols={{ pairs: symbols }}
+        />
+      </div>
+      <p id="liteAppNote">
+        Trades made on the Binance Lite app will not be part of the analysis
+        because this information is not stored in the account&apos;s trade
+        history.
+      </p>
+    </div>
+  );
 }
 
 Analyzer.propTypes = {
@@ -179,7 +177,7 @@ Analyzer.defaultProps = {
   tradeHistory: {},
 };
 
-const mapStateToProps = state => {
+function mapStateToProps(state) {
   return {
     apiKey: getKey(state),
     fetchInProgress: getTradeHistoryStatus(state),
@@ -187,15 +185,16 @@ const mapStateToProps = state => {
     symbols: getSymbols(state),
     tradeHistory: getTradeHistory(state),
   };
-};
+}
 
-export const mapDispatchToProps = dispatch =>
-  bindActionCreators(
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(
     {
       fetchTradeHistory,
       forgetSymbol,
     },
     dispatch,
   );
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Analyzer);
